@@ -19,14 +19,7 @@ class CalculationsController < ApplicationController
 
     @word_count = @text.split(/\s+/).length
 
-    @occurrences = occurrences(@special_word)
-
-    def occurrences()
-        words = @text.split(' ')
-        frequency = Hash.new(0)
-        words.each { |word| frequency[word.downcase] += 1 }
-        return frequency
-    end
+    @occurrences = @text.split(' ').count(@special_word)
 
     # ================================================================================
     # Your code goes above.
@@ -106,7 +99,11 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    @median = "Replace this string with your answer."
+    if  @count.odd? == true
+        @median = @sorted_numbers[(@count + 1) / 2]
+    else
+        @median = (@sorted_numbers[@count / 2] + @sorted_numbers[(@count + 1) / 2])/2
+    end
 
     @sum = @numbers.inject 0, :+
 
@@ -120,7 +117,7 @@ class CalculationsController < ApplicationController
 
     @numbers.each {|number| count[number] +=1}
 
-    @mode = count.sort.first
+    @mode = count.invert.keys.sort.last
 
     # ================================================================================
     # Your code goes above.
