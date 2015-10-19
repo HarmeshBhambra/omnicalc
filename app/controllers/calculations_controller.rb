@@ -111,6 +111,19 @@ class CalculationsController < ApplicationController
 
     @variance = @numbers.inject(0.0) {|s,x| s + (x - @mean)**2} / @count
 
+    # squared_differences = []
+
+    # @numbers.each do |num|
+    #   difference = num - @mean
+    #   squared_difference = difference ** 2
+    #   squared_differences.push(squared_difference)
+    # end
+
+    # @variance = squared_differences.sum / @count
+
+
+    # @standard_deviation = Math.sqrt(@variance)
+
     @standard_deviation = @variance ** 0.5
 
     count = Hash.new(0)
