@@ -15,11 +15,15 @@ class CalculationsController < ApplicationController
 
     @spaces_count = @text.count(' ')
 
-    @character_count_without_spaces = @character_count_with_spaces - @spaces_count
+    @character_count_without_spaces = @text.gsub(/\s+/, "").length
 
     @word_count = @text.split(/\s+/).length
 
-    @occurrences = @text.split(' ').count(@special_word)
+    text_withoutextras = @text.gsub(/[^a-z0-9\s]/i, '')
+
+    downcase_text = text_withoutextras.downcase
+
+    @occurrences = downcase_text.split(' ').count(@special_word.downcase)
 
     # ================================================================================
     # Your code goes above.
@@ -99,11 +103,7 @@ class CalculationsController < ApplicationController
 
     @range = @maximum - @minimum
 
-    if  @count.odd? == true
-        @median = @sorted_numbers[(@count + 1) / 2]
-    else
-        @median = (@sorted_numbers[@count / 2] + @sorted_numbers[(@count/ 2) + 1])/2
-    end
+    @median = ( @sorted_numbers [((@sorted_numbers.length-1) / 2)]  + @sorted_numbers[(@sorted_numbers.length / 2 )]  ) / 2
 
     @sum = @numbers.inject 0, :+
 
